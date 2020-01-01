@@ -1,28 +1,26 @@
 # frozen_string_literal: true
 
 require 'uri'
+require 'pry'
 require 'json'
-require 'net/http'
-require 'net/https'
+# require 'net/http'
+# require 'net/https'
 
-require 'helpers/const'
-require 'helpers/exceptions'
-require 'helpers/response_parser'
-# require 'simple_request/https'
-# require 'simple_request/version'
+require_relative 'simple_helper/const'
+require_relative 'simple_helper/http'
+require_relative 'simple_helper/https'
+require_relative 'simple_helper/utils'
+require_relative 'simple_helper/version'
+require_relative 'simple_helper/exceptions'
+require_relative 'simple_helper/response_parser'
+require_relative 'simple_helper/headers_processor'
 
 class SimpleRequest
-  # Exceptions raised by SimpleRequest inherit from Error
-  # Your code goes here...
-  attr_reader :options
+  attr_reader :options, :response
 
   def initialize(**options)
-    @options = options.symbolize_keys!
+    @options = SimpleHelper::Utils.symbolize_keys(options)
     validate
-    # @uri     = URI(options[:url])
-    # @body = options[:body]
-    # @headers = options[:headers] || {}
-    # @options = options[:body]
   end
 
   def self.get(*args)
@@ -30,21 +28,19 @@ class SimpleRequest
   end
 
   def get
-    # open_ssl
-    # debugger
-    # https = Net::HTTP.new(uri.host, uri.port)
-    # https.use_ssl = true
-    # https.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    req = Net::HTTP::Get.new(uri, headers_processor)
-    req.body = body.to_json
-    https.request(req)
+    @response = Object.const_get("SimpleHelper::#{scheme.capitalize}").perform(uri, body, headers_processor)
+    self
   end
 
-  def data; end
-
-  SimpleRequest::Const.reference.each do |key|
+  SimpleHelper::Const.reference.each do |key|
     define_method key.to_s do
       uri.instance_eval(key)
+    end
+  end
+
+  SimpleHelper::Const.supported_format.each do |key|
+    define_method key.to_s do
+      SimpleHelper::ResponseParser.perform(response.body, key)
     end
   end
 
@@ -54,37 +50,36 @@ class SimpleRequest
     options[:body]
   end
 
+  def headers_processor
+    SimpleHelper::HeadersProcessor.perform(headers)
+  end
+
+  def http_method
+    # "#{Net::HTTP::}"
+  end
+
   def headers
     options[:headers] || {}
   end
 
-  def headers_processor
-    return headers unless content_type_passed?
-
-    { 'Content-Type' => 'application/json' }.merge(headers)
+  def uri
+    URI(options[:url])
   end
 
-  def content_type_passed?
-    headers['Content-Type'].present?
-  end
+  def response_processor; end
 
   def validate
-    # raise HTTParty::RedirectionTooDeep.new(last_response), 'HTTP redirects too deep' if options[:limit].to_i <= 0
+    # raise SimpleHelper::RedirectionTooDeep.new(last_response), 'HTTP redirects too deep' if options[:limit].to_i <= 0
 
-    # unless SimpleRequest::Const.supported_methods.include?(http_method)
+    # unless SimpleHelper::Const.supported_methods.include?(http_method)
     #   raise ArgumentError, 'only get, post, patch, put, and delete methods are supported'
     # end
 
-    raise ArgumentError, ':headers must be a hash' if headers && !headers.respond_to?(:to_hash)
+    raise ArgumentError, ':headers must be a hash' unless headers.respond_to?(:to_hash)
 
-    raise ArgumentError, ':headers must be a hash' if headers && !headers.respond_to?(:to_hash)
-
-    unless SimpleRequest::Const.supported_schemes.include? scheme
-      raise UnsupportedURIScheme, "'#{scheme}' Must be HTTP or HTTPS"
+    unless SimpleHelper::Const.supported_schemes.include? scheme
+      raise SimpleHelper::UnsupportedURIScheme, ' URL Must start with http:// or https://'
     end
-    # if options[:basic_auth] && options[:digest_auth]
-    #   raise ArgumentError, 'only one authentication method, :basic_auth or :digest_auth may be used at a time'
-    # end
 
       # if options[:basic_auth] && !options[:basic_auth].respond_to?(:to_hash)
       # raise ArgumentError, ':basic_auth must be a hash'
@@ -98,39 +93,4 @@ class SimpleRequest
     #   raise ArgumentError, ':query must be hash if using HTTP Post'
     #   end
   end
-
-  def open_ssl
-    return if has_no_ssl?
-
-    @https = Net::HTTP.new(uri.host, uri.port)
-    @https.use_ssl = true
-    @https.verify_mode = OpenSSL::SSL::VERIFY_NONE
-  end
-
-  def has_no_ssl?; end
-
-  def http_method
-    # "#{Net::HTTP::}"
-  end
-
-  def parser
-    options[:parser] || 'json'
-  end
-
-  def uri
-    URI(options[:url])
-  end
-
-  def response_processor; end
-
-  # def parse_response(req)
-  #   https.request(req)
-  # rescue Timeout::Error || Net::OpenTimeout
-  #   puts "\e[31mTime out!\e[0m"
-  # rescue Net::HTTPBadResponse || SocketError
-  #   puts "\e[31mRequest Failed!\e[0m"
-  # rescue StandardError
-  #   puts "\e[31mAn unknown error occurred!\e[0m"
-  # end
 end
-require 'simple_request/exceptions'

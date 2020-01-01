@@ -1,4 +1,4 @@
-module SimpleRequest
+module SimpleHelper
   class Error < StandardError; end
 
   # Exception raised when you attempt to set a non-existent format

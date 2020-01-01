@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# exm: SimpleRequest::Https.get(url: 'http://example.com/v1/users?search=Dubai City&page=&limit=', body: {}, headers: {})
+# exm: SimpleRequest.get(url: 'http://example.com/v1/users?search=Dubai City&page=&limit=', body: {}, headers: {})
 class SimpleRequest::Https < SimpleRequest::Base
   attr_reader :uri, :body, :headers, :https
 

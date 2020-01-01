@@ -2,7 +2,7 @@
 
 require_relative 'constant_data'
 
-module SimpleRequest
+module SimpleHelper
   class Const
     def self.supported_methods
       ConstantData::SupportedHTTPMethods
@@ -11,8 +11,13 @@ module SimpleRequest
     def self.supported_schemes
       ConstantData::SupportedURISchemes
     end
+
     def self.reference
       ConstantData::REFERENCES
+    end
+
+    def self.supported_format
+      ConstantData::SUPPORTED_FORMAT
     end
   end
 end
