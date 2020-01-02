@@ -23,15 +23,7 @@ class SimpleRequest
     validate
   end
 
-  # def self.get(*args)
-  #   new(*args).get
-  # end
-
-  # def get
-  #   @response = requested_class.get(uri, body, headers_processor)
-  #   self
-  # end
-
+  # This define method should create ["get", "post", "patch", "put", "delete"] class methods
   class << self
     SimpleHelper::Const.supported_methods.keys.each do |method_name|
       define_method method_name do |*args|
@@ -40,6 +32,7 @@ class SimpleRequest
     end
   end
 
+  # This define method should create ["get", "post", "patch", "put", "delete"] instance methods
   SimpleHelper::Const.supported_methods.keys.each do |method_name|
     define_method method_name do
       @response = requested_class.send(method_name, uri, body, headers_processor)
@@ -47,6 +40,7 @@ class SimpleRequest
     end
   end
 
+  # This define method should create ["scheme", "host", "port", "request_uri", "path", "query"] instance methods
   SimpleHelper::Const.reference.each do |key|
     define_method key do
       uri.instance_eval(key)

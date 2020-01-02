@@ -43,6 +43,7 @@ request.json
 #     }
 # }
 request.plain
+# OUTPUT
 # "{\"message\":\"Data found\",\"cities\":{\"data\":[{\"id\":\"8\",\"type\":\"city\",\"attributes\":{\"name_en\":\"Mohali\",\"name_ar\":\"موهالي\",\"status\":\"inactive\"}}]},\"pagination\":{\"current_page\":1,\"next_page\":2,\"previous_page\":null,\"total_pages\":6,\"per_page\":1,\"total_entries\":6}}"
 
 request.scheme        # => "https"
@@ -52,8 +53,8 @@ request.request_uri   # => "/v1/cities?limit=1"
 request.path          # => "/v1/cities"
 request.query         # => "limit=1"
 ```
-### POST Request
 
+### POST Request
 ```ruby
 
 request = SimpleRequest.post(
@@ -62,9 +63,43 @@ request = SimpleRequest.post(
     headers: {"Authorization"=> "Bearer xxxxxxxxxxxx.xxxxxxxx.xxxxxxxx"}
 )
 request.json
+# OUTPUT
 # {"message"=>"City created successfully", "city"=>{"data"=>{"id"=>"10", "type"=>"city_details", "attributes"=>{"name_en"=>"Mukalla", "name_ar"=>"المكلا", "suggested_time"=>0, "suggested"=>false, "status"=>"active"}}}}
 request.plain
+# OUTPUT
 #  "{\"message\":\"City created successfully\",\"city\":{\"data\":{\"id\":\"10\",\"type\":\"city_details\",\"attributes\":{\"name_en\":\"Mukalla\",\"name_ar\":\"المكلا\",\"suggested_time\":0,\"suggested\":false,\"status\":\"active\"}}}}"
+```
+
+### PUT Request
+```ruby
+request = SimpleRequest.put(
+    url: 'https://api.xxxxx.xxxxxx.com/v1/cities/10',
+    body: {"city"=>{"name_ar"=>"حضرموت", "name_en"=>"Hadramut", "status"=>"active"}, "locale"=>"en"},
+    headers: {"Authorization"=> "Bearer xxxxxxxxxxxx.xxxxxxxx.xxxxxxxx"}
+)
+
+request.json
+# OUTPUT
+# {"message"=>"City updated successfully", "city"=>{"data"=>{"id"=>"10", "type"=>"city_details", "attributes"=>{"name_en"=>"Hadramut", "name_ar"=>"حضرموت", "suggested_time"=>0, "suggested"=>false, "status"=>"active"}}}}
+request.plain
+# OUTPUT
+# "{\"message\":\"City updated successfully\",\"city\":{\"data\":{\"id\":\"10\",\"type\":\"city_details\",\"attributes\":{\"name_en\":\"Hadramut\",\"name_ar\":\"حضرموت\",\"suggested_time\":0,\"suggested\":false,\"status\":\"active\"}}}}"
+```
+
+### DELETE Request
+```ruby
+request = SimpleRequest.delete(
+    url: 'https://api.xxxxx.xxxxxx.com/v1/cities/10',
+    body: {},
+    headers: {"Authorization"=> "Bearer xxxxxxxxxxxx.xxxxxxxx.xxxxxxxx"}
+)
+
+request.json
+# OUTPUT
+# {"message"=>"City deleted successfully", "id"=>10}
+request.plain
+# OUTPUT
+# "{\"message\":\"City deleted successfully\",\"id\":10}"
 ```
 
 ## Development
