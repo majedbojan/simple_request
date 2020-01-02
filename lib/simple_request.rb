@@ -28,23 +28,42 @@ class SimpleRequest
   end
 
   def get
-    @response = Object.const_get("SimpleHelper::#{scheme.capitalize}").perform(uri, body, headers_processor)
+    @response = requested_class.get(uri, body, headers_processor)
     self
   end
 
+  # class << self
+  #   SimpleHelper::Const.supported_methods.keys.each do |key|
+  #     define_method key do |*args|
+  #       new(*args).send(key)
+  #     end
+  #   end
+  # end
+
+  # SimpleHelper::Const.supported_methods.keys.each do |key|
+  #   define_method key do
+  #     @response = requested_class.get(uri, body, headers_processor)
+  #     self
+  #   end
+  # end
+
   SimpleHelper::Const.reference.each do |key|
-    define_method key.to_s do
+    define_method key do
       uri.instance_eval(key)
     end
   end
 
   SimpleHelper::Const.supported_format.each do |key|
-    define_method key.to_s do
+    define_method key do
       SimpleHelper::ResponseParser.perform(response.body, key)
     end
   end
 
   private
+
+  def requested_class
+    Object.const_get("SimpleHelper::#{scheme.capitalize}")
+  end
 
   def body
     options[:body]

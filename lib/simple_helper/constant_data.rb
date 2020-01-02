@@ -3,10 +3,10 @@
 module SimpleHelper
   class ConstantData
     SupportedHTTPMethods = {
-      'get'    => Net::HTTP::Get,
-      'post'   => Net::HTTP::Post,
-      'patch'  => Net::HTTP::Patch,
-      'put'    => Net::HTTP::Put,
+      'get' => Net::HTTP::Get,
+      'post' => Net::HTTP::Post,
+      'patch' => Net::HTTP::Patch,
+      'put' => Net::HTTP::Put,
       'delete' => Net::HTTP::Delete
     }.freeze
 
@@ -15,7 +15,3 @@ module SimpleHelper
     SupportedURISchemes = ['http', 'https'].freeze
   end
 end
-
-
-
-

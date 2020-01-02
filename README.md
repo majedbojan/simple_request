@@ -23,6 +23,36 @@ Or install it yourself as:
 ## Examples
 
 TODO: Write usage instructions here
+```ruby
+# GET Request
+request = SimpleRequest.get(url: 'https://api.xxxxx.xxxxxx.com/v1/cities', body: {}, headers: {'API-ACCESSOR' => 'xxxxxxx-xxxxx-xxxx-xxxx-x'})
+request.json
+# OUTPUT
+# {
+#     "message"=>"Data found",
+#     "cities"=>{
+#         "data"=>[
+#             {
+#                 "id"=>"8",
+#                 "type"=>"city",
+#                 "attributes"=>{
+#                     "name_en"=>"Mohali",
+#                     "status"=>"inactive"
+#                 }
+#             }
+#         ]
+#     }
+# }
+request.plain
+# "{\"message\":\"Data found\",\"cities\":{\"data\":[{\"id\":\"8\",\"type\":\"city\",\"attributes\":{\"name_en\":\"Mohali\",\"name_ar\":\"موهالي\",\"status\":\"inactive\"}}]},\"pagination\":{\"current_page\":1,\"next_page\":2,\"previous_page\":null,\"total_pages\":6,\"per_page\":1,\"total_entries\":6}}"
+
+request.scheme        # => "https"
+request.host          # => "api.xxxxx.xxxxxx.com"
+request.port          # => 80
+request.request_uri   # => "/v1/cities?limit=1"
+request.path          # => "/v1/cities"
+request.query         # => "limit=1"
+```
 
 ## Development
 
