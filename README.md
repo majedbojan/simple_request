@@ -1,9 +1,6 @@
 # SimpleRequest
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/simple_request`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
+`simple_request` founded to make your http, https request simple as it should to be
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -70,9 +67,16 @@ request.plain
 #  "{\"message\":\"City created successfully\",\"city\":{\"data\":{\"id\":\"10\",\"type\":\"city_details\",\"attributes\":{\"name_en\":\"Mukalla\",\"name_ar\":\"المكلا\",\"suggested_time\":0,\"suggested\":false,\"status\":\"active\"}}}}"
 ```
 
-### PUT Request
+### PUT, Patch Request
 ```ruby
+
 request = SimpleRequest.put(
+    url: 'https://api.xxxxx.xxxxxx.com/v1/cities/10',
+    body: {"city"=>{"name_ar"=>"حضرموت", "name_en"=>"Hadramut", "status"=>"active"}, "locale"=>"en"},
+    headers: {"Authorization"=> "Bearer xxxxxxxxxxxx.xxxxxxxx.xxxxxxxx"}
+)
+
+request = SimpleRequest.patch(
     url: 'https://api.xxxxx.xxxxxx.com/v1/cities/10',
     body: {"city"=>{"name_ar"=>"حضرموت", "name_en"=>"Hadramut", "status"=>"active"}, "locale"=>"en"},
     headers: {"Authorization"=> "Bearer xxxxxxxxxxxx.xxxxxxxx.xxxxxxxx"}
