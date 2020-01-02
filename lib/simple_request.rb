@@ -23,29 +23,29 @@ class SimpleRequest
     validate
   end
 
-  def self.get(*args)
-    new(*args).get
-  end
-
-  def get
-    @response = requested_class.get(uri, body, headers_processor)
-    self
-  end
-
-  # class << self
-  #   SimpleHelper::Const.supported_methods.keys.each do |key|
-  #     define_method key do |*args|
-  #       new(*args).send(key)
-  #     end
-  #   end
+  # def self.get(*args)
+  #   new(*args).get
   # end
 
-  # SimpleHelper::Const.supported_methods.keys.each do |key|
-  #   define_method key do
-  #     @response = requested_class.get(uri, body, headers_processor)
-  #     self
-  #   end
+  # def get
+  #   @response = requested_class.get(uri, body, headers_processor)
+  #   self
   # end
+
+  class << self
+    SimpleHelper::Const.supported_methods.keys.each do |method_name|
+      define_method method_name do |*args|
+        new(*args).send(method_name)
+      end
+    end
+  end
+
+  SimpleHelper::Const.supported_methods.keys.each do |method_name|
+    define_method method_name do
+      @response = requested_class.send(method_name, uri, body, headers_processor)
+      self
+    end
+  end
 
   SimpleHelper::Const.reference.each do |key|
     define_method key do

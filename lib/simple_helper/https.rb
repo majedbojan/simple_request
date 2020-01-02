@@ -6,12 +6,12 @@ module SimpleHelper
   module Https
     class << self
       SimpleHelper::Const.supported_methods.each do |key, http_method|
-        define_method key.to_s do |uri, params, headers_processor|
+        define_method key.to_s do |uri, params, headers|
           https = Net::HTTP.new(uri.host, uri.port)
           https.use_ssl = true
           https.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-          req = http_method.new(uri, headers_processor)
+          req = http_method.new(uri, headers)
           req.body = params.to_json
           http.request(req)
         rescue Timeout::Error || Net::OpenTimeout

@@ -8,9 +8,9 @@ module SimpleHelper
   module Http
     class << self
       SimpleHelper::Const.supported_methods.each do |key, http_method|
-        define_method key.to_s do |uri, params, headers_processor|
+        define_method key.to_s do |uri, params, headers|
           http = Net::HTTP.new(uri.host, uri.port)
-          req = http_method.new(uri, headers_processor)
+          req = http_method.new(uri, headers)
           req.body = params.to_json
           http.request(req)
         rescue Timeout::Error || Net::OpenTimeout

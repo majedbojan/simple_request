@@ -22,9 +22,8 @@ Or install it yourself as:
 
 ## Examples
 
-TODO: Write usage instructions here
+#### GET Request
 ```ruby
-# GET Request
 request = SimpleRequest.get(url: 'https://api.xxxxx.xxxxxx.com/v1/cities', body: {}, headers: {'API-ACCESSOR' => 'xxxxxxx-xxxxx-xxxx-xxxx-x'})
 request.json
 # OUTPUT
@@ -52,6 +51,20 @@ request.port          # => 80
 request.request_uri   # => "/v1/cities?limit=1"
 request.path          # => "/v1/cities"
 request.query         # => "limit=1"
+```
+### POST Request
+
+```ruby
+
+request = SimpleRequest.post(
+    url: 'https://api.xxxxx.xxxxxx.com/v1/cities',
+    body: {"city"=>{"name_ar"=>"المكلا", "name_en"=>"Mukalla", "status"=>"active"}, "locale"=>"en"},
+    headers: {"Authorization"=> "Bearer xxxxxxxxxxxx.xxxxxxxx.xxxxxxxx"}
+)
+request.json
+# {"message"=>"City created successfully", "city"=>{"data"=>{"id"=>"10", "type"=>"city_details", "attributes"=>{"name_en"=>"Mukalla", "name_ar"=>"المكلا", "suggested_time"=>0, "suggested"=>false, "status"=>"active"}}}}
+request.plain
+#  "{\"message\":\"City created successfully\",\"city\":{\"data\":{\"id\":\"10\",\"type\":\"city_details\",\"attributes\":{\"name_en\":\"Mukalla\",\"name_ar\":\"المكلا\",\"suggested_time\":0,\"suggested\":false,\"status\":\"active\"}}}}"
 ```
 
 ## Development
