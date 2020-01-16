@@ -1,6 +1,6 @@
 # SimpleRequest
 
-`simple_request` founded to make your http, https request simple as it should to be
+`simple_request` founded to make both `HTTP` and `HTTPS` request simple as it should to be
 ## Installation
 
 Add this line to your application's Gemfile:
