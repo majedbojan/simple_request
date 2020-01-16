@@ -49,7 +49,7 @@ class SimpleRequest
 
   SimpleHelper::Const.supported_format.each do |key|
     define_method key do
-      SimpleHelper::ResponseParser.perform(response.body, key)
+      SimpleHelper::ResponseParser.perform(body_response, key)
     end
   end
 
@@ -61,6 +61,10 @@ class SimpleRequest
 
   def body
     options[:body]
+  end
+
+  def body_response
+    response&.body
   end
 
   def headers_processor
