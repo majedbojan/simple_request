@@ -25,6 +25,16 @@ RSpec.describe SimpleRequest do
     expect(request.plain.is_a?(String)).to be_truthy
   end
 
+  it 'should make get request with https method' do
+    request = SimpleRequest.get(
+      url: 'https://jsonplaceholder.typicode.com/posts',
+      body: {},
+      headers: {}
+    )
+    expect(request.json.is_a?(Array)).to be_truthy
+    expect(request.plain.is_a?(String)).to be_truthy
+  end
+
   it 'should make post request' do
     request = SimpleRequest.post(
       url: "#{http}cities?limit=10",

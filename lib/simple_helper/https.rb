@@ -2,6 +2,7 @@
 
 require 'uri'
 require 'net/https'
+require 'pry'
 module SimpleHelper
   module Https
     class << self
@@ -13,7 +14,7 @@ module SimpleHelper
 
           req = http_method.new(uri, headers)
           req.body = params.to_json
-          http.request(req)
+          https.request(req)
         rescue Timeout::Error || Net::OpenTimeout
           puts "\e[31mTime out!\e[0m"
         rescue Net::HTTPBadResponse || SocketError
