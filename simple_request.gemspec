@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["bojanmajed@gmail.com"]
 
   spec.summary       = %q{Simple ruby gem that helps to make HTTP and HTTPS request from ruby projects.}
-  spec.homepage      = "http://majedbojan.github.io/"
+  spec.homepage      = "https://github.com/MajedBojan/simple_request"
   spec.license       = "MIT"
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
