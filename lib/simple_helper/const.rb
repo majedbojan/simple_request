@@ -19,5 +19,17 @@ module SimpleHelper
     def self.supported_format
       ConstantData::SUPPORTED_FORMAT
     end
+
+    def self.colors
+      ConstantData::COLORS
+    end
+
+    def self.bg_colors
+      ConstantData::BG_COLORS
+    end
+
+    def self.fonts
+      ConstantData::FONTS
+   end
   end
 end

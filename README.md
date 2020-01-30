@@ -65,7 +65,13 @@ request.json
 request.plain
 # OUTPUT
 #  "{\"message\":\"City created successfully\",\"city\":{\"data\":{\"id\":\"10\",\"type\":\"city_details\",\"attributes\":{\"name_en\":\"Mukalla\",\"name_ar\":\"المكلا\",\"suggested_time\":0,\"suggested\":false,\"status\":\"active\"}}}}"
+
+request.csv
+# This will export the whole response you can specify the path you want to export by passing the exact path as string split by comma
+# example
+request.csv('city,data,attributes')
 ```
+
 
 ### PUT, Patch Request
 ```ruby

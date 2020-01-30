@@ -3,6 +3,7 @@
 require 'uri'
 require 'net/http'
 require_relative 'const'
+require_relative 'string/string_colorize'
 
 module SimpleHelper
   module Http
@@ -14,11 +15,11 @@ module SimpleHelper
           req.body = params.to_json
           http.request(req)
         rescue Timeout::Error || Net::OpenTimeout
-          puts "\e[31mTime out!\e[0m"
+          puts 'Time out'.bold.red.gray
         rescue Net::HTTPBadResponse || SocketError
-          puts "\e[31mRequest Failed!\e[0m"
+          puts 'Request Failed!'.bold.red.gray
         rescue StandardError
-          puts "\e[31mAn unknown error occurred!\e[0m"
+          puts 'An unknown error occurred!'.bold.red.gray
         end
       end
     end
