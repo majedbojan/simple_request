@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
-require 'uri'
+# require 'uri'
 require 'pry'
-require 'json'
-# require 'net/http'
-# require 'net/https'
+# require 'json'
+
+# require_relative 'simple_helper/array/wrap'
+# require_relative 'simple_helper/string/string_colorize'
+# require_relative 'simple_helper/array/to_csv'
+require_relative 'simple_helper/hash/keys'
 
 require_relative 'simple_helper/const'
 require_relative 'simple_helper/http'
 require_relative 'simple_helper/https'
-require_relative 'simple_helper/utils'
 require_relative 'simple_helper/version'
 require_relative 'simple_helper/exceptions'
 require_relative 'simple_helper/response_parser'
@@ -19,7 +21,7 @@ class SimpleRequest
   attr_reader :options, :response
 
   def initialize(**options)
-    @options = SimpleHelper::Utils.symbolize_keys(options)
+    @options = options.symbolize_keys!
     validate
   end
 
@@ -49,8 +51,12 @@ class SimpleRequest
 
   SimpleHelper::Const.supported_format.each do |key|
     define_method key do
-      SimpleHelper::ResponseParser.perform(body_response, key)
+      SimpleHelper::ResponseParser.perform(body_response, key, nil)
     end
+  end
+
+  def csv(path = nil)
+    SimpleHelper::ResponseParser.perform(body_response, 'csv', path)
   end
 
   private
@@ -82,8 +88,6 @@ class SimpleRequest
   def uri
     URI(options[:url])
   end
-
-  def response_processor; end
 
   def validate
     # raise SimpleHelper::RedirectionTooDeep.new(last_response), 'HTTP redirects too deep' if options[:limit].to_i <= 0

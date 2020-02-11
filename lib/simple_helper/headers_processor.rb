@@ -8,7 +8,7 @@ module SimpleHelper
     def self.perform(headers)
       return {} if headers.nil? || !headers.respond_to?(:to_hash)
 
-      @headers = SimpleHelper::Utils.stringify_keys(headers)
+      @headers = headers.stringify_keys!
 
       return @headers unless @headers['Content-Type'].nil?
 
