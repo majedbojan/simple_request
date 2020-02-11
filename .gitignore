@@ -10,3 +10,4 @@
 # rspec failure tracking
 .rspec_status
 /simple_request-0.1.1.gem
+/simple_request-0.1.2.gem
