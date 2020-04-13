@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative '../../../lib/simple_helper/array/wrap'
 
 RSpec.describe SimpleHelper do
@@ -11,6 +12,6 @@ RSpec.describe SimpleHelper do
   end
 
   it 'taking hash and return array' do
-    expect(Array.wrap(foo: :bar)).to eq([{:foo=>:bar}])
+    expect(Array.wrap(foo: :bar)).to eq([{ foo: :bar }])
   end
 end

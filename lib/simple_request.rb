@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-# require 'uri'
 require 'pry'
-# require 'json'
-
-# require_relative 'simple_helper/array/wrap'
-# require_relative 'simple_helper/string/string_colorize'
-# require_relative 'simple_helper/array/to_csv'
 require_relative 'simple_helper/hash/keys'
 
 require_relative 'simple_helper/const'
