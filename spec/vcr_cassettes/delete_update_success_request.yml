@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://jsonplaceholder.typicode.com/posts/1
+    body:
+      encoding: UTF-8
+      string: 'null'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - jsonplaceholder.typicode.com
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Date:
+      - Mon, 13 Apr 2020 17:53:52 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d5a9b096826f51ea441d99ee05e4e02a91586800419; expires=Wed, 13-May-20
+        17:53:39 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax
+      X-Powered-By:
+      - Express
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - "-1"
+      Via:
+      - 1.1 vegur
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 58370c3f6e1ee70c-EWR
+    body:
+      encoding: UTF-8
+      string: |-
+        SyntaxError: Unexpected token n in JSON at position 0
+            at JSON.parse (<anonymous>)
+            at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)
+            at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)
+            at /app/node_modules/body-parser/lib/read.js:121:18
+            at invokeCallback (/app/node_modules/raw-body/index.js:224:16)
+            at done (/app/node_modules/raw-body/index.js:213:7)
+            at IncomingMessage.onEnd (/app/node_modules/raw-body/index.js:273:7)
+            at IncomingMessage.emit (events.js:333:22)
+            at endReadableNT (_stream_readable.js:1204:12)
+            at processTicksAndRejections (internal/process/task_queues.js:84:21)
+    http_version: 
+  recorded_at: Mon, 13 Apr 2020 17:53:53 GMT
+recorded_with: VCR 5.0.0
