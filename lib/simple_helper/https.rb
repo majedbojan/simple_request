@@ -6,7 +6,7 @@ require_relative 'string/string_colorize'
 module SimpleHelper
   module Https
     class << self
-      SimpleHelper::Const.supported_methods.each do |key, http_method|
+      SimpleHelper::Config.supported_methods.each do |key, http_method|
         define_method key.to_s do |uri, params, headers|
           https = Net::HTTP.new(uri.host, uri.port)
           https.use_ssl = true
