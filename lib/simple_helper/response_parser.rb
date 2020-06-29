@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 require_relative 'array/wrap'
 require_relative 'array/to_csv'
 require_relative 'string/string_colorize'

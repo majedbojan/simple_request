@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 module SimpleHelper
   module HeadersProcessor
     attr_reader :headers

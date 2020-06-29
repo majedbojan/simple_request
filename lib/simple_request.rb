@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 require_relative 'simple_helper/hash/keys'
 
 require_relative 'simple_helper/const'
