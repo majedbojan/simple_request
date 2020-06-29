@@ -1,5 +1,3 @@
-require 'pry'
-
 RSpec.describe SimpleRequest do
   subject { described_class }
 

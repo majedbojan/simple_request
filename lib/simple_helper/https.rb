@@ -2,7 +2,6 @@
 
 require 'uri'
 require 'net/https'
-require 'pry'
 require_relative 'string/string_colorize'
 module SimpleHelper
   module Https
