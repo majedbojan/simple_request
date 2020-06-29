@@ -2,7 +2,7 @@
 
 require_relative 'simple_helper/hash/keys'
 
-%w[const http https version exceptions response_parser headers_processor].each do |file_name|
+%w[config http https version exceptions response_parser headers_processor].each do |file_name|
   require_relative "simple_helper/#{file_name}"
 end
 # require_relative 'simple_helper/const'
@@ -23,7 +23,7 @@ class SimpleRequest
 
   # This define method should create ["get", "post", "patch", "put", "delete"] class methods
   class << self
-    SimpleHelper::Const.supported_methods.keys.each do |method_name|
+    SimpleHelper::Config.supported_methods.keys.each do |method_name|
       define_method method_name do |*args|
         new(*args).send(method_name)
       end
@@ -31,7 +31,7 @@ class SimpleRequest
   end
 
   # This define method should create ["get", "post", "patch", "put", "delete"] instance methods
-  SimpleHelper::Const.supported_methods.keys.each do |method_name|
+  SimpleHelper::Config.supported_methods.keys.each do |method_name|
     define_method method_name do
       @response = requested_class.send(method_name, uri, body, headers_processor)
       self
@@ -39,13 +39,13 @@ class SimpleRequest
   end
 
   # This define method should create ["scheme", "host", "port", "request_uri", "path", "query"] instance methods
-  SimpleHelper::Const.reference.each do |key|
+  SimpleHelper::Config.reference.each do |key|
     define_method key do
       uri.instance_eval(key)
     end
   end
 
-  SimpleHelper::Const.supported_format.each do |key|
+  SimpleHelper::Config.supported_format.each do |key|
     define_method key do
       SimpleHelper::ResponseParser.perform(body_response, key, nil)
     end
@@ -88,13 +88,13 @@ class SimpleRequest
   def validate
     # raise SimpleHelper::RedirectionTooDeep.new(last_response), 'HTTP redirects too deep' if options[:limit].to_i <= 0
 
-    # unless SimpleHelper::Const.supported_methods.include?(http_method)
+    # unless SimpleHelper::Config.supported_methods.include?(http_method)
     #   raise ArgumentError, 'only get, post, patch, put, and delete methods are supported'
     # end
 
     raise ArgumentError, ':headers must be a hash' unless headers.respond_to?(:to_hash)
 
-    unless SimpleHelper::Const.supported_schemes.include? scheme
+    unless SimpleHelper::Config.supported_schemes.include? scheme
       raise SimpleHelper::UnsupportedURIScheme, ' URL Must start with http:// or https://'
     end
 

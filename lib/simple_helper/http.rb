@@ -2,13 +2,13 @@
 
 require 'uri'
 require 'net/http'
-require_relative 'const'
+require_relative 'config'
 require_relative 'string/string_colorize'
 
 module SimpleHelper
   module Http
     class << self
-      SimpleHelper::Const.supported_methods.each do |key, http_method|
+      SimpleHelper::Config.supported_methods.each do |key, http_method|
         define_method key.to_s do |uri, params, headers|
           http = Net::HTTP.new(uri.host, uri.port)
           req = http_method.new(uri, headers)
