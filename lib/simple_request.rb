@@ -2,16 +2,9 @@
 
 require_relative 'simple_helper/hash/keys'
 
-%w[config http https version exceptions response_parser headers_processor].each do |file_name|
+%w[config request version exceptions response_parser headers_processor].each do |file_name|
   require_relative "simple_helper/#{file_name}"
 end
-# require_relative 'simple_helper/const'
-# require_relative 'simple_helper/http'
-# require_relative 'simple_helper/https'
-# require_relative 'simple_helper/version'
-# require_relative 'simple_helper/exceptions'
-# require_relative 'simple_helper/response_parser'
-# require_relative 'simple_helper/headers_processor'
 
 class SimpleRequest
   attr_reader :options, :response
