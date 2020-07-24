@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 13 Apr 2020 15:49:30 GMT
+      - Fri, 24 Jul 2020 10:22:37 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,10 +31,16 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d4e707e7d6fcc6f491da960eb6d5774b71586792970; expires=Wed, 13-May-20
-        15:49:30 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax
+      - __cfduid=de07b5fb6e427bdb58a064ab98cd64f421595586157; expires=Sun, 23-Aug-20
+        10:22:37 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax
       X-Powered-By:
       - Express
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Remaining:
+      - '997'
+      X-Ratelimit-Reset:
+      - '1595586196'
       Vary:
       - Origin, Accept-Encoding
       Access-Control-Allow-Credentials:
@@ -53,12 +59,14 @@ http_interactions:
       - 1.1 vegur
       Cf-Cache-Status:
       - DYNAMIC
+      Cf-Request-Id:
+      - 0421f1b39a0000085fcc873200000001
       Expect-Ct:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Cf-Ray:
-      - 5836565f6d03d78d-MRS
+      - 5b7cebcc2c90085f-CDG
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -69,5 +77,5 @@ http_interactions:
           "body": "bar"
         }
     http_version: 
-  recorded_at: Mon, 13 Apr 2020 15:49:30 GMT
+  recorded_at: Fri, 24 Jul 2020 10:22:38 GMT
 recorded_with: VCR 5.0.0

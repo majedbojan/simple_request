@@ -1,8 +1,10 @@
 # frozen_string_literal: true
-
 require 'uri'
+require 'net/http'
 require 'net/https'
+require 'json'
 require_relative 'string/string_colorize'
+
 module SimpleHelper
   module Https
     class << self
@@ -44,5 +46,4 @@ module SimpleHelper
       end
     end
   end
-
 end
