@@ -9,13 +9,15 @@ Add this line to your application's Gemfile:
 gem 'simple_request', '~> 0.1.3'
 ```
 
-And then execute:
+Then bundle it
+```powershell
+$ bundle
+```
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install simple_request
+Install it independently:
+```powershell
+$ gem install simple_request
+```
 
 ## Examples
 
