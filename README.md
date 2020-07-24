@@ -6,7 +6,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simple_request'
+gem 'simple_request', '~> 0.1.3'
 ```
 
 And then execute:
