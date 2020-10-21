@@ -1,6 +1,24 @@
 # SimpleRequest
 
 `simple_request` founded to make both `HTTP` and `HTTPS` request simple as it should to be
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Installation](#installation)
+- [Usage](#usage)
+    - [GET Request](#get-request)
+    - [POST Request](#post-request)
+    - [PUT, Patch Request](#put-patch-request)
+    - [DELETE Request](#delete-request)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+- [Code of Conduct](#code-of-conduct)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -19,7 +37,7 @@ Install it independently:
 $ gem install simple_request
 ```
 
-## Examples
+## Usage
 
 #### GET Request
 ```ruby
@@ -53,7 +71,7 @@ request.path          # => "/v1/cities"
 request.query         # => "limit=1"
 ```
 
-### POST Request
+#### POST Request
 ```ruby
 
 request = SimpleRequest.post(
@@ -75,7 +93,7 @@ request.csv('city,data,attributes')
 ```
 
 
-### PUT, Patch Request
+#### PUT, Patch Request
 ```ruby
 
 request = SimpleRequest.put(
@@ -98,7 +116,7 @@ request.plain
 # "{\"message\":\"City updated successfully\",\"city\":{\"data\":{\"id\":\"10\",\"type\":\"city_details\",\"attributes\":{\"name_en\":\"Hadramut\",\"name_ar\":\"حضرموت\",\"suggested_time\":0,\"suggested\":false,\"status\":\"active\"}}}}"
 ```
 
-### DELETE Request
+#### DELETE Request
 ```ruby
 request = SimpleRequest.delete(
     url: 'https://api.xxxxx.xxxxxx.com/v1/cities/10',
