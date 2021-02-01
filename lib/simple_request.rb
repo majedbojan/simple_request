@@ -48,7 +48,7 @@ class SimpleRequest
   end
 
   def code
-    @response.code
+    response&.code
   end
 
   private
