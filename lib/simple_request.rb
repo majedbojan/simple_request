@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'simple_helper/hash/keys'
-
 %w[config request version exceptions response_parser headers_processor].each do |file_name|
   require_relative "simple_helper/#{file_name}"
 end
@@ -46,6 +45,10 @@ class SimpleRequest
 
   def csv(path = nil)
     SimpleHelper::ResponseParser.perform(body_response, 'csv', path)
+  end
+
+  def code
+    @response.code
   end
 
   private
