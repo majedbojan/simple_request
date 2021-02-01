@@ -1,7 +1,7 @@
 require "bundler/setup"
 require "simple_request"
 require 'vcr'
-Dir["#{__dir__}/support/**/*.rb"].each(&method(:require))
+Dir["#{__dir__}/support/**/*.rb"].sort.each(&method(:require))
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

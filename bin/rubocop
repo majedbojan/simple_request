@@ -13,4 +13,3 @@ end
 
 puts "== Running rubocop with safe auto correct on modified files after #{last_commit_id_of_base_branch} commit =="
 system("git diff #{last_commit_id_of_base_branch} --name-only | xargs bundle exec rubocop -A")
-
