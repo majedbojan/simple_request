@@ -24,7 +24,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simple_request', '~> 0.1.3'
+gem 'simple_request', '~> 0.1.4'
 ```
 
 Then bundle it
