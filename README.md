@@ -28,11 +28,13 @@ gem 'simple_request', '~> 0.1.4'
 ```
 
 Then bundle it
+
 ```powershell
 $ bundle
 ```
 
 Install it independently:
+
 ```powershell
 $ gem install simple_request
 ```
@@ -40,6 +42,7 @@ $ gem install simple_request
 ## Usage
 
 #### GET Request
+
 ```ruby
 request = SimpleRequest.get(url: 'https://api.xxxxx.xxxxxx.com/v1/cities', body: {}, headers: {'API-ACCESSOR' => 'xxxxxxx-xxxxx-xxxx-xxxx-x'})
 request.json
@@ -118,18 +121,15 @@ request.plain
 
 #### DELETE Request
 ```ruby
-request = SimpleRequest.delete(
+request =
+  SimpleRequest.delete(
     url: 'https://api.xxxxx.xxxxxx.com/v1/cities/10',
     body: {},
-    headers: {"Authorization"=> "Bearer xxxxxxxxxxxx.xxxxxxxx.xxxxxxxx"}
-)
+    headers: { 'Authorization' => 'Bearer xxxxxxxxxxxx.xxxxxxxx.xxxxxxxx' }
+  )
 
 request.json
-# OUTPUT
-# {"message"=>"City deleted successfully", "id"=>10}
-request.plain
-# OUTPUT
-# "{\"message\":\"City deleted successfully\",\"id\":10}"
+request.plain # "{\"message\":\"City deleted successfully\",\"id\":10}" # OUTPUT
 ```
 
 ## Development
