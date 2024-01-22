@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'uri'
 require 'net/http'
 require 'net/https'
@@ -7,6 +8,7 @@ require_relative 'string/string_colorize'
 
 module SimpleHelper
   module Https
+
     class << self
       SimpleHelper::Config.supported_methods.each do |key, http_method|
         define_method key do |uri, params, headers|
@@ -28,7 +30,7 @@ module SimpleHelper
     end
   end
 
- module Http
+  module Http
     class << self
       SimpleHelper::Config.supported_methods.each do |key, http_method|
         define_method key.to_s do |uri, params, headers|

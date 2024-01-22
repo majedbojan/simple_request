@@ -1,318 +1,63 @@
-inherit_from: .rubocop_todo.yml
+# inherit_from: .rubocop_todo.yml
 
-require:
-  - rubocop-rspec
-  - rubocop-performance
-  - rubocop-rake
+require: rubocop-performance
 
 AllCops:
-  NewCops: enable
-  DisplayCopNames: true
-  TargetRubyVersion: 3.2.2
-  Include:
-    - '**/*.rb'
-    - '**/*.axlsx'
-    - '**/*.gemfile'
-    - '**/*.gemspec'
-    - '**/*.rabl'
-    - '**/*.rake'
-    - '**/*.ru'
-    - '**/*.ruby'
-    - '**/*.spec'
-    - '**/.irbrc'
-    - '**/.pryrc'
-    - '**/Gemfile'
-    - '**/Guardfile'
-
+  TargetRubyVersion: 3.2.3
   Exclude:
-    - "gemfiles/**/*"
-    - '.git/**/*'
-    - 'bin/*'
-    - 'log/**/*'
-    - 'tmp/**/*'
-    - 'vendor/**/*'
-
-# metrics
-
-Metrics/BlockLength:
-
-Metrics/ClassLength:
-  Max: 500
-
-Metrics/ModuleLength:
-  Max: 200
-Metrics/MethodLength:
-  Max: 20
-  CountAsOne:
-    - array
-    - hash
-    - heredoc
-Metrics/AbcSize:
-  Description: Assignment Branch Condition size
-
-Style/FrozenStringLiteralComment:
-  Enabled: true
-
-Style/NumberedParametersLimit:
-  Description: Avoid using more than 1 numbered parameter
-  Enabled: false
+    - bin/**
+    - db/**/*
+    - node_modules/**/*
 
 Style/Documentation:
   Enabled: false
-Style/StringLiterals:
 
-Style/ExponentialNotation:
-  Description: This cop enforces consistency when using exponential notation for numbers in the code (eg 1.2e4).
-  Enabled: true
-
-Style/SlicingWithRange:
-  Description: This cop checks that arrays are sliced with endless ranges instead of ary[start..-1] on Ruby 2.6+.
-  Enabled: true
-
-Style/OpenStructUse:
-  Description: Avoid using `OpenStruct`; use `Struct`, `Hash`, a class or test doubles instead.
+Style/ClassAndModuleChildren:
   Enabled: false
 
-# layouts
+Lint/Void:
+  Enabled: false
 
-Layout/EmptyLineBetweenDefs:
-  Description: Expected 1 empty line between class definitions
-  Enabled: true
+Metrics/AbcSize:
+  Max: 30
 
-Layout/EmptyLinesAroundAttributeAccessor:
-  Description: Checks for a newline after an attribute accessor or a group of them
-  Enabled: true
+Layout/LineLength:
+  Max: 120
 
-Layout/SpaceAroundMethodCallOperator:
-  Description: Checks method call operators to not have spaces around them.
-  Enabled: true
+Metrics/ClassLength:
+  Max: 1500
+
+Metrics/MethodLength:
+  Max: 10
+
+Metrics/BlockLength:
+  Max: 70
 
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
-  SupportedHashRocketStyles:
-    - table
-  SupportedColonStyles:
-    - table
 
-Layout/SpaceAroundEqualsInParameterDefault:
-  EnforcedStyle: space
-  SupportedStyles:
-    - space
-    - no_space
-
-Layout/SpaceInsideBlockBraces:
-  SpaceBeforeBlockParameters: true
-
-Layout/IndentationConsistency:
-  EnforcedStyle: normal
-  SupportedStyles:
-    - normal
-
-Layout/LineLength:
-  Max: 160
-
-# Naming
-
-Naming/VariableNumber:
-  Description: Use normalcase for symbol numbers.
-  Enabled: false
-
-# Styles
-
-Style/HashEachMethods:
-  Description: 'Use Hash#each_key and Hash#each_value.'
+Gemspec/DeprecatedAttributeAssignment:
   Enabled: true
-
-Style/HashTransformKeys:
-  Description: 'Prefer `transform_keys` over `each_with_object` and `map`.'
+Gemspec/DevelopmentDependencies:
   Enabled: true
-
-Style/HashTransformValues:
-  Description: 'Prefer `transform_values` over `each_with_object` and `map`.'
+Gemspec/RequireMFA:
   Enabled: true
-
-Style/RedundantRegexpCharacterClass:
-  Description: 'Checks for unnecessary single-element Regexp character classes.'
+Layout/LineContinuationLeadingSpace:
   Enabled: true
-
-Style/RedundantRegexpEscape:
-  Description: 'Checks for redundant escapes in Regexps.'
+Layout/LineContinuationSpacing:
   Enabled: true
-
-Style/RedundantFetchBlock:
-  Description: 'This cop identifies places where fetch(key) { value } can be replaced by fetch(key, value).'
+Layout/LineEndStringConcatenationIndentation: 
   Enabled: true
-
-Style/AccessorGrouping:
-  Description: This cop checks for grouping of accessors in class and module bodies
+Layout/SpaceBeforeBrackets:
   Enabled: true
-
-Style/ArrayCoercion:
-  Description: This cop enforces the use of Array() instead of explicit Array check or [*var].
+Lint/AmbiguousAssignment:
   Enabled: true
-
-Style/BisectedAttrAccessor:
-  Description: This cop checks for places where attr_reader and attr_writer for the same method can be combined into single attr_accessor.
+Lint/AmbiguousOperatorPrecedence:
   Enabled: true
-
-Style/CaseLikeIf:
-  Description: This cop identifies places where if-elsif constructions can be replaced with case-when.
+Lint/AmbiguousRange:
   Enabled: true
-
-Style/HashAsLastArrayItem:
-  Description: Checks for presence or absence of braces around hash literal as a last array item depending on configuration.
-  Enabled: false
-
-Style/HashLikeCase:
-  Description: This cop checks for places where case-when represents a simple 1:1 mapping and can be replaced with a hash lookup.
+Lint/ConstantOverwrittenInRescue:
   Enabled: true
-
-Style/RedundantAssignment:
-  Description: This cop checks for redundant assignment before returning.
+Lint/DeprecatedConstants:
   Enabled: true
-
-Style/RedundantFileExtensionInRequire:
-  Description: This cop checks for the presence of superfluous .rb extension in the filename provided to require and require_relative.
-  Enabled: true
-
-Style/FormatStringToken:
-  Description: Prefer annotated tokens (like `%<foo>s`) over template tokens (like `%{foo}`).
-  Enabled: false
-
-# Lint
-
-Lint/RaiseException:
-  Description: Checks for `raise` or `fail` statements which is raise `Exception` class.
-  Enabled: true
-  VersionAdded: '0.81'
-
-Lint/StructNewOverride:
-  Description: Checks unexpected overrides of the Struct built-in methods via Struct.new.
-  Enabled: true
-  VersionAdded: '0.81'
-
-Lint/DeprecatedOpenSSLConstant:
-  Description: Algorithmic constants for OpenSSL::Cipher and OpenSSL::Digest deprecated since OpenSSL version 2.2.0. Prefer passing a string instead.
-  Enabled: true
-
-Lint/MixedRegexpCaptureTypes:
-  Description: This cop warns if a Regexp literal has both of named/numbered captures. Because we cannot reference numbered captures if they are mixed.
-  Enabled: true
-
-Lint/DuplicateElsifCondition:
-  Description: This cop checks that there are no repeated conditions used in if 'elsif'.
-  Enabled: true
-
-Lint/MissingSuper:
-  Description: Call super to initialize state of the parent class.
-  Enabled: true
-
-Lint/ConstantDefinitionInBlock:
-  Description: 'Do not define constants within a block.'
-  Enabled: true
-
-# Performance
-
-Performance/Casecmp:
-  Description: Use `name.casecmp('val').zero?` instead of `name.downcase == 'val'`
-  Enabled: false
-
-Performance/AncestorsInclude:
-  Description: This cop is used to identify usages of ancestors.include? and change them to use ⇐ instead.
-  Enabled: true
-
-Performance/BigDecimalWithNumericArgument:
-  Description: This cop identifies places where numeric argument to BigDecimal should be converted to string. Initializing from String is faster than from Numeric for BigDecimal.
-  Enabled: true
-
-Performance/RedundantSortBlock:
-  Description: This cop identifies places where sort { |a, b| a <⇒ b } can be replaced with sort.
-  Enabled: true
-
-Performance/RedundantStringChars:
-  Description: This cop checks for redundant String#chars.
-  Enabled: true
-
-Performance/ReverseFirst:
-  Description: This cop identifies places where reverse.first(n) and reverse.first can be replaced by last(n).reverse and last.
-  Enabled: true
-
-Performance/SortReverse:
-  Description: This cop identifies places where sort { |a, b| b <⇒ a } can be replaced by a faster sort.reverse.
-  Enabled: true
-
-Performance/Squeeze:
-  Description: This cop identifies places where gsub(/a+/, 'a') and gsub!(/a+/, 'a') can be replaced by squeeze('a') and squeeze!('a').
-  Enabled: true
-
-Performance/StringInclude:
-  Description: This cop identifies unnecessary use of a regex where String#include? would suffice.
-  Enabled: true
-
-Performance/CollectionLiteralInLoop:
-  Description: Avoid immutable Array literals in loops. It is better to extract it into a local variable or a constant.
-  Enabled: false
-
-Security/YAMLLoad:
-  Description: Prefer using `YAML.safe_load` over `YAML.load`.
-  Enabled: false
-
-# Rspec
-
-RSpec/ExampleLength:
-  Description: Checks for long examples.
-  Max: 15
-
-RSpec/NestedGroups:
-  Description: Maximum example group nesting exceeded
-
-RSpec/NamedSubject:
-  Description: Checks for explicitly referenced test subjects.
-  Enabled: false
-
-RSpec/IndexedLet:
-  Description: Allow numbers in lets.
-  Enabled: false
-
-RSpec/MultipleExpectations:
-  Description: Checks if examples contain too many `expect` calls.
-  Enabled: false
-  Max: 3
-
-RSpec/LetSetup:
-  Description: Checks unreferenced `let!` calls being used for test setup.
-  Enabled: true
-
-RSpec/DescribeClass:
-  Description: requires the first name in describe block to be class name.
-  Enabled: false
-
-Naming/FileName:
-  Exclude:
-    - 'Gemfile'
-    - 'Guardfile'
-    - 'Rakefile'
-
-RSpec/MessageSpies:
-  Description: Prefer `have_received` for setting message expectations. Setup `Palm::UpdateReservation` as a spy using `allow` or `instance_spy`.
-  Enabled: false
-
-RSpec/VerifiedDoubles:
-  Description: 'Prefer using verifying doubles over normal doubles.'
-  Enabled: false
-
-RSpec/MultipleDescribes:
-  Description: 'Do not use multiple top level describes - try to nest them.'
-
-RSpec/MultipleMemoizedHelpers:
-  Description: Checks if example groups contain too many `let` and `subject` calls.
-  Enabled: false
-
-RSpec/StubbedMock:
-  Description: Prefer allow over expect when configuring a response.
-  Enabled: false
-
-RSpec/Capybara/SpecificMatcher:
-  Description: Prefer have_select over have_css.
-  Enabled: false

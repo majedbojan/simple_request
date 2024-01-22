@@ -8,29 +8,42 @@ end
 class SimpleRequest
   attr_reader :options, :response
 
-  def initialize(**options)
+  def initialize(options = {})
     @options = options.symbolize_keys!
     validate
   end
 
-  # This define method should create ["get", "post", "patch", "put", "delete"] class methods
+  # def self.get; end
+  # def self.post; end
+  # def self.patch; end
+  # def self.put; end
+  # def self.delete; end
   class << self
-    SimpleHelper::Config.supported_methods.keys.each do |method_name|
+    SimpleHelper::Config.supported_methods.each_key do |method_name|
       define_method method_name do |*args|
         new(*args).send(method_name)
       end
     end
   end
 
-  # This define method should create ["get", "post", "patch", "put", "delete"] instance methods
-  SimpleHelper::Config.supported_methods.keys.each do |method_name|
+  # def get; end,
+  # def post; end
+  # def patch; end
+  # def put; end
+  # def delete; end
+  SimpleHelper::Config.supported_methods.each_key do |method_name|
     define_method method_name do
       @response = requested_class.send(method_name, uri, body, headers_processor)
       self
     end
   end
 
-  # This define method should create ["scheme", "host", "port", "request_uri", "path", "query"] instance methods
+  # def scheme; end
+  # def host; end
+  # def port; end
+  # def request_uri; end
+  # def path; end
+  # def query; end
   SimpleHelper::Config.reference.each do |key|
     define_method key do
       uri.instance_eval(key)
@@ -82,7 +95,7 @@ class SimpleRequest
   end
 
   def validate
-    # raise SimpleHelper::RedirectionTooDeep.new(last_response), 'HTTP redirects too deep' if options[:limit].to_i <= 0
+    # raise SimpleHelper::RedirectionTooDeep, 'HTTP redirects too deep' if options[:limit].to_i <= 0
 
     # unless SimpleHelper::Config.supported_methods.include?(http_method)
     #   raise ArgumentError, 'only get, post, patch, put, and delete methods are supported'
@@ -90,20 +103,24 @@ class SimpleRequest
 
     raise ArgumentError, ':headers must be a hash' unless headers.respond_to?(:to_hash)
 
+    # return if SimpleHelper::Config.supported_schemes.include? scheme
+
     unless SimpleHelper::Config.supported_schemes.include? scheme
-      raise SimpleHelper::UnsupportedURIScheme, ' URL Must start with http:// or https://'
+      raise SimpleHelper::UnsupportedURIScheme, 'URL Must start with http:// or https://'
     end
 
-      # if options[:basic_auth] && !options[:basic_auth].respond_to?(:to_hash)
-      # raise ArgumentError, ':basic_auth must be a hash'
-      # end
+    raise ArgumentError, ':body must be a hash' unless !body.nil? && body.respond_to?(:to_hash)
 
-      # if options[:digest_auth] && !options[:digest_auth].respond_to?(:to_hash)
-      # raise ArgumentError, ':digest_auth must be a hash'
-      # end
+    # if options[:basic_auth] && !options[:basic_auth].respond_to?(:to_hash)
+    # raise ArgumentError, ':basic_auth must be a hash'
+    # end
+
+    # if options[:digest_auth] && !options[:digest_auth].respond_to?(:to_hash)
+    # raise ArgumentError, ':digest_auth must be a hash'
+    # end
 
     # if post? && !options[:query].nil? && !options[:query].respond_to?(:to_hash)
     #   raise ArgumentError, ':query must be hash if using HTTP Post'
-    #   end
+    # end
   end
 end
