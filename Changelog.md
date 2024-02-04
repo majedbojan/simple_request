@@ -9,7 +9,7 @@
 - Added `string_colorize` in String class to colorize any string
 - Supported csv format you can export the response to csv by `request.csv`
 
-## 2024-01-18
+## 2024-02-04
 
 - Upgraded dependencies
 
