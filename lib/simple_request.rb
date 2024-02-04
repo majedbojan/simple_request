@@ -107,10 +107,9 @@ class SimpleRequest
 
     # return if SimpleHelper::Config.supported_schemes.include? scheme
 
-    unless SimpleHelper::Config.supported_schemes.include? scheme
-      raise SimpleHelper::UnsupportedURIScheme, 'URL Must start with http:// or https://'
-    end
+    return if SimpleHelper::Config.supported_schemes.include? scheme
 
+    raise SimpleHelper::UnsupportedURIScheme, 'URL Must start with http:// or https://'
     # raise ArgumentError, ':body must be a hash' if !body.nil? && !body.respond_to?(:to_hash)
 
     # if options[:basic_auth] && !options[:basic_auth].respond_to?(:to_hash)
