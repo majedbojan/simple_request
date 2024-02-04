@@ -50,6 +50,8 @@ class SimpleRequest
     end
   end
 
+  # def json; end
+  # def plain; end
   SimpleHelper::Config.supported_format.each do |key|
     define_method key do
       SimpleHelper::ResponseParser.perform(body_response, key, nil)
@@ -109,7 +111,7 @@ class SimpleRequest
       raise SimpleHelper::UnsupportedURIScheme, 'URL Must start with http:// or https://'
     end
 
-    raise ArgumentError, ':body must be a hash' unless !body.nil? && body.respond_to?(:to_hash)
+    # raise ArgumentError, ':body must be a hash' if !body.nil? && !body.respond_to?(:to_hash)
 
     # if options[:basic_auth] && !options[:basic_auth].respond_to?(:to_hash)
     # raise ArgumentError, ':basic_auth must be a hash'

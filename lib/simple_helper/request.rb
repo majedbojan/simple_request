@@ -8,7 +8,6 @@ require_relative 'string/string_colorize'
 
 module SimpleHelper
   module Https
-
     class << self
       SimpleHelper::Config.supported_methods.each do |key, http_method|
         define_method key do |uri, params, headers|
@@ -20,12 +19,20 @@ module SimpleHelper
           req.body = params.to_json
           https.request(req)
         rescue Timeout::Error || Net::OpenTimeout
-          puts 'Time out'.bold.red.gray
+          error_handler(message: 'Time out')
         rescue Net::HTTPBadResponse || SocketError
-          puts 'Request Failed!'.bold.red.gray
+          error_handler(message: 'Request Failed!')
         rescue StandardError
-          puts 'An unknown error occurred!'.bold.red.gray
+          error_handler(message: 'An unknown error occurred!')
         end
+      end
+
+      def error_handler(message: nil)
+        {
+          "status":  400,
+          "error":   'Bad Request',
+          "message": message
+        }
       end
     end
   end
@@ -39,12 +46,20 @@ module SimpleHelper
           req.body = params.to_json
           http.request(req)
         rescue Timeout::Error || Net::OpenTimeout
-          puts 'Time out'.bold.red.gray
+          error_handler(message: 'Time out')
         rescue Net::HTTPBadResponse || SocketError
-          puts 'Request Failed!'.bold.red.gray
+          error_handler(message: 'Request Failed!')
         rescue StandardError
-          puts 'An unknown error occurred!'.bold.red.gray
+          error_handler(message: 'An unknown error occurred!')
         end
+      end
+
+      def error_handler(message: nil)
+        {
+          "status":  400,
+          "error":   'Bad Request',
+          "message": message
+        }
       end
     end
   end
