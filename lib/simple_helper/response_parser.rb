@@ -19,9 +19,9 @@ module SimpleHelper
     end
 
     def parse
-      return nil if body.nil?
-      return nil if body == 'null'
-      return nil if body.valid_encoding? && body.strip.empty?
+      if body.nil? || body == 'null' || (body.valid_encoding? && body.strip.empty?)
+        return log(message: 'Invalid response')
+      end
 
       @body = body.gsub(/\A#{UTF8_BOM}/, '') if body.valid_encoding? && body.encoding == Encoding::UTF_8
       send(format)
@@ -36,7 +36,7 @@ module SimpleHelper
     def json
       JSON.parse(body, quirks_mode: true, allow_nan: true)
     rescue JSON::ParserError
-      puts "Response cannot be parsed because it's not a string nor valid JSON. please use .plain to get the the plain response".bold.brown.gray
+      log(message: "Response cannot be parsed because it's not a string nor valid JSON. please use .plain to get the the plain response")
     end
 
     def plain
@@ -48,6 +48,14 @@ module SimpleHelper
       raise ArgumentError, 'Cannot export nil or empty hash please pass proper path'.bold.brown.gray if data.nil?
 
       Array.wrap(data).to_csv('file_name.csv')
+    end
+
+    def log(message: nil)
+      {
+        "status":  400,
+        "error":   'Bad Request',
+        "message": message
+      }
     end
 
     # def xml

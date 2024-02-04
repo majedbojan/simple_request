@@ -1,16 +1,13 @@
-inherit_from: .rubocop_todo.yml
+# inherit_from: .rubocop_todo.yml
 
 require: rubocop-performance
 
-# AllCops:
-#   TargetRubyVersion: 2.6.2
-#   Exclude:
-#     - bin/**
-#     - db/**/*
-#     - node_modules/**/*
-
-Documentation:
-  Enabled: false
+AllCops:
+  TargetRubyVersion: 3.2.3
+  Exclude:
+    - bin/**
+    - db/**/*
+    - node_modules/**/*
 
 Style/Documentation:
   Enabled: false
@@ -24,14 +21,14 @@ Lint/Void:
 Metrics/AbcSize:
   Max: 30
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 Metrics/ClassLength:
   Max: 1500
 
 Metrics/MethodLength:
-  Max: 25
+  Max: 10
 
 Metrics/BlockLength:
   Max: 70
@@ -39,3 +36,28 @@ Metrics/BlockLength:
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
+
+Gemspec/DeprecatedAttributeAssignment:
+  Enabled: true
+Gemspec/DevelopmentDependencies:
+  Enabled: true
+Gemspec/RequireMFA:
+  Enabled: true
+Layout/LineContinuationLeadingSpace:
+  Enabled: true
+Layout/LineContinuationSpacing:
+  Enabled: true
+Layout/LineEndStringConcatenationIndentation: 
+  Enabled: true
+Layout/SpaceBeforeBrackets:
+  Enabled: true
+Lint/AmbiguousAssignment:
+  Enabled: true
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: true
+Lint/AmbiguousRange:
+  Enabled: true
+Lint/ConstantOverwrittenInRescue:
+  Enabled: true
+Lint/DeprecatedConstants:
+  Enabled: true
